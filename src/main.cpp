@@ -63,6 +63,20 @@ ostream& operator<<(ostream& stream,const Date& date)
     return stream;
 }
 
+
+bool is_num(string& str)
+{
+   if (str.empty() || ( str[0]!='-' && str[0]!='+' && !isdigit(str[0]) ) )
+       return false;
+
+    for (int i=1; i<str.size(); i++)
+    {
+        if (!isdigit(str[i]))
+            return false;
+    }
+    return true;
+}
+
 int input_date( istringstream& in,string& str,char next)
 {
     int y;
@@ -79,9 +93,10 @@ int input_date( istringstream& in,string& str,char next)
         else if(e=='+')
         {
             e = in.get();
-            try
-            {
+
                 std::getline(in,str_y,next);
+                if (!is_num(str_y))
+                    throw std::runtime_error("Wrong date format: "+str);
                 istringstream inp(str_y);
                 if (inp)
                 {
@@ -91,17 +106,15 @@ int input_date( istringstream& in,string& str,char next)
                 }
                 else
                     throw std::runtime_error("Wrong date format: "+str);
-            }
-            catch (std::invalid_argument const& ex)
-            {
-                throw std::runtime_error("Wrong date format: "+str);
-            }
+
         }
         else
         {
-            try
-            {
+
                 std::getline(in,str_y,next);
+                if (!is_num(str_y))
+                    throw std::runtime_error("Wrong date format: "+str);
+
                 istringstream inp(str_y);
                 if (inp)
                 {
@@ -112,11 +125,7 @@ int input_date( istringstream& in,string& str,char next)
                 }
                 else
                     throw std::runtime_error("Wrong date format: "+str);
-            }
-            catch (std::invalid_argument const& ex)
-            {
-                throw std::runtime_error("Wrong date format: "+str);
-            }
+
         }
     }
     else if (c=='+')
@@ -125,47 +134,40 @@ int input_date( istringstream& in,string& str,char next)
         char e = in.peek();
         if (e=='-')
             e = in.get();
-        try
-        {
-            std::getline(in,str_y,next);
-            istringstream inp(str_y);
-            if (inp)
-            {
-                inp>>y;
-                if (!inp)
-                    throw std::runtime_error("Wrong date format: "+str);
-                y = abs(y);
-            }
-            else
-                throw std::runtime_error("Wrong date format: "+str);
 
-        }
-        catch (std::invalid_argument const& ex)
-        {
+        std::getline(in,str_y,next);
+        if (!is_num(str_y))
             throw std::runtime_error("Wrong date format: "+str);
+        istringstream inp(str_y);
+        if (inp)
+        {
+            inp>>y;
+            if (!inp)
+                throw std::runtime_error("Wrong date format: "+str);
+            y = abs(y);
         }
+        else
+            throw std::runtime_error("Wrong date format: "+str);
+
     }
     else
     {
-        try
-        {
-            std::getline(in,str_y,next);
 
-            istringstream inp(str_y);
-            if (inp)
-            {
-                inp>>y;
-                if (!inp)
-                    throw std::runtime_error("Wrong date format: "+str);
-                y = abs(y);
-            }
-            else
-                throw std::runtime_error("Wrong date format: "+str);
-        }
-        catch (std::invalid_argument const& ex)
-        {
+        std::getline(in,str_y,next);
+        if (!is_num(str_y))
             throw std::runtime_error("Wrong date format: "+str);
+
+        istringstream inp(str_y);
+        if (inp)
+        {
+            inp>>y;
+            if (!inp)
+                throw std::runtime_error("Wrong date format: "+str);
+            y = abs(y);
         }
+        else
+            throw std::runtime_error("Wrong date format: "+str);
+
 
     }
     return y;
@@ -186,7 +188,7 @@ istream& operator>>(istream& stream,Date& date)
         y=input_date(in,str,'-');
         m=input_date(in,str,'-');
         d=input_date(in,str,in.eof());
-     //   cout<<"INPUT: "<<y<<" "<<m<<" "<<d<<endl;
+   //     cout<<"INPUT: "<<y<<" "<<m<<" "<<d<<endl;
         if (m>=1 && m<=12)
         {
             if (d>=1 && d<=31)
