@@ -1,0 +1,74 @@
+# Exclude
+.autorevision.cache
+./project/src/version.h
+./version.h
+
+# Text
+key.txt
+
+# Folders
+#postbuild/
+bak/
+lst/
+obj/
+phy/
+
+# Eclipse project
+.cproject
+.project
+.codelite
+.settings
+
+# Backups
+*.bkp
+*.bak
+
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+*.su
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+*.bin
+*.pyc
+
+# Archives
+*.7z
+*.zip
+*.rar
+*.gz
+
+# Slick
+*.vtg
+*.vpj
+*.vpw
+*.vpwhistu
+
+/Debug/
+/Default/
