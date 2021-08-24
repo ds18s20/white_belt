@@ -83,7 +83,14 @@ int input_date( istringstream& in,string& str,char next)
             {
                 std::getline(in,str_y,next);
                 istringstream inp(str_y);
-                inp>>y;
+                if (inp)
+                {
+                    inp>>y;
+                    if (!inp)
+                        throw std::runtime_error("Wrong date format: "+str);
+                }
+                else
+                    throw std::runtime_error("Wrong date format: "+str);
             }
             catch (std::invalid_argument const& ex)
             {
@@ -96,8 +103,15 @@ int input_date( istringstream& in,string& str,char next)
             {
                 std::getline(in,str_y,next);
                 istringstream inp(str_y);
-                inp>>y;
-                y=-y;
+                if (inp)
+                {
+                    inp>>y;
+                    if (!inp)
+                        throw std::runtime_error("Wrong date format: "+str);
+                    y = -y;
+                }
+                else
+                    throw std::runtime_error("Wrong date format: "+str);
             }
             catch (std::invalid_argument const& ex)
             {
@@ -115,8 +129,15 @@ int input_date( istringstream& in,string& str,char next)
         {
             std::getline(in,str_y,next);
             istringstream inp(str_y);
-            inp>>y;
-            y = abs(y);
+            if (inp)
+            {
+                inp>>y;
+                if (!inp)
+                    throw std::runtime_error("Wrong date format: "+str);
+                y = abs(y);
+            }
+            else
+                throw std::runtime_error("Wrong date format: "+str);
 
         }
         catch (std::invalid_argument const& ex)
@@ -131,9 +152,15 @@ int input_date( istringstream& in,string& str,char next)
             std::getline(in,str_y,next);
 
             istringstream inp(str_y);
-            inp>>y;
-            y = abs(y);
-
+            if (inp)
+            {
+                inp>>y;
+                if (!inp)
+                    throw std::runtime_error("Wrong date format: "+str);
+                y = abs(y);
+            }
+            else
+                throw std::runtime_error("Wrong date format: "+str);
         }
         catch (std::invalid_argument const& ex)
         {
